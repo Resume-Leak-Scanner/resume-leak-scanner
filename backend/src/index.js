@@ -4,6 +4,8 @@ const helmet = require('helmet');
 const cors = require('cors');
 
 const app = express();
+const uploadRoute = require('./routes/upload');
+app.use('/api/upload', uploadRoute);
 app.use(helmet());
 app.use(cors());
 app.use(express.json());

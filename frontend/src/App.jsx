@@ -1,35 +1,41 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
-
-import axios from 'axios';
+import { useState } from 'react';
+import './App.css';
  
-export default function UploadForm() {
+function App() {
   const [file, setFile] = useState(null);
   const [status, setStatus] = useState('');
   const [result, setResult] = useState(null);
  
-  const onFileChange = e => {
+  const onFileChange = (e) => {
     setFile(e.target.files[0]);
     setResult(null);
+    setStatus('');
   };
  
-  const onSubmit = async e => {
+  const onSubmit = async (e) => {
     e.preventDefault();
     if (!file) return setStatus('Please select a file');
-    const form = new FormData();
-    form.append('resume', file);
+ 
+    const formData = new FormData();
+    formData.append('file', file); 
+ 
     try {
       setStatus('Uploading...');
-      const res = await axios.post('http://localhost:4000/api/upload', form, {
-        headers: { 'Content-Type': 'multipart/form-data' },
-        timeout: 120000
+      const res = await fetch('http://localhost:4000/api/upload', {
+        method: 'POST',
+        body: formData
       });
-      setResult(res.data);
+ 
+      if (!res.ok) {
+        const errText = await res.text();
+        throw new Error(errText || 'Upload failed');
+      }
+ 
+      const data = await res.json();
+      setResult(data);
       setStatus('Analysis complete');
     } catch (err) {
-      setStatus('Upload error: ' + (err.response?.data?.error || err.message));
+      setStatus('Upload error: ' + err.message);
     }
   };
  
@@ -37,17 +43,20 @@ export default function UploadForm() {
 <div style={{ maxWidth: 720, margin: '1rem auto' }}>
 <h2>Resume Leak Scanner — Upload</h2>
 <form onSubmit={onSubmit}>
-<input type="file" accept=".pdf,.docx" onChange={onFileChange} />
+<input type="file" name="resume" accept=".pdf,.docx" onChange={onFileChange} />
 <button disabled={!file} type="submit">Scan Resume</button>
 </form>
 <p>{status}</p>
+ 
       {result && (
 <div>
 <h3>Risk: {result.risk.level} (score {result.risk.score})</h3>
 <h4>Detections</h4>
 <ul>
             {result.detections.map((d, i) => (
-<li key={i}><strong>{d.type}</strong>: {d.match} — {d.context || ''}</li>
+<li key={i}>
+<strong>{d.type}</strong>: {d.match} — {d.context || ''}
+</li>
             ))}
 </ul>
 </div>
@@ -55,3 +64,5 @@ export default function UploadForm() {
 </div>
   );
 }
+ 
+export default App;

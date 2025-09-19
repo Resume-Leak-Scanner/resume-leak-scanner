@@ -1,3 +1,4 @@
+//endpoint for files uploading
 const express = require('express');
 const multer = require('multer');
 const { handleFileBuffer } = require('../modules/processor');

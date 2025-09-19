@@ -1,18 +1,22 @@
+// processor.js
 const pdf = require('pdf-parse');
 const mammoth = require('mammoth');
 const { normalizeText } = require('./normalize');
 const { runDetectors, scoreRisk } = require('./detectors');
 
+// Extract text from PDF buffer
 async function extractFromPDF(buffer) {
   const data = await pdf(buffer);
   return data.text;
 }
 
+// Extract text from DOCX buffer
 async function extractFromDOCX(buffer) {
   const result = await mammoth.extractRawText({ buffer });
   return result.value;
 }
 
+// Main processor for uploaded files
 async function handleFileBuffer(file) {
   let rawText = '';
 

@@ -5,12 +5,10 @@ function addContext(text, match, contextLength = 30) {
   const i = text.indexOf(match);
   if (i === -1) return '';
  
-  // Extract context before the match, stopping at previous newline
   const beforeRaw = text.substring(Math.max(0, i - contextLength), i);
   const prevNewline = beforeRaw.lastIndexOf('\n');
   const before = prevNewline !== -1 ? beforeRaw.substring(prevNewline + 1) : beforeRaw;
  
-  // Extract context after the match, stopping at next newline
   const afterRaw = text.substring(i + match.length, i + match.length + contextLength);
   const nextNewline = afterRaw.indexOf('\n');
   const after = nextNewline !== -1 ? afterRaw.substring(0, nextNewline) : afterRaw;
@@ -33,11 +31,8 @@ function detectEmails(text) {
 // Phone detection (Australian)
 function detectPhones(text) {
   const patterns = [
-    // Australian mobiles: 04xx xxx xxx or +61 4xx xxx xxx
     /\b(?:\+?61\s?|0)4\d{2}[\s-]?\d{3}[\s-]?\d{3}\b/g,
- 
-    // Australian landlines: 0[2378] xxxx xxxx or +61 [2378] xxxx xxxx
-    /\b(?:\+?61\s?|0)([2378])\d{1}[\s-]?\d{3}[\s-]?\d{3,4}\b/g
+    /\b(?:\+?61\s?|0)([2378])\d{1}[\s-]?\d{3}[\s-]?\d{3,4}\b/g,
   ];
   const set = new Set();
   patterns.forEach(p => {
@@ -83,15 +78,14 @@ function detectAddresses(text) {
   return matches;
 }
  
-// ID detection (SSN, Aadhaar, Passport)
+// ID detection
 function detectIDs(text) {
   const results = [];
  
-  // Collect phones to prevent overlap
-  const phonePattern = /\b(?:\+?61\s?|0)4\d{2}[\s-]?\d{3}[\s-]?\d{3}\b|\b(?:\+?61\s?|0)([2378])\d{1}[\s-]?\d{3}[\s-]?\d{3,4}\b/g;
+  const phonePattern =
+    /\b(?:\+?61\s?|0)4\d{2}[\s-]?\d{3}[\s-]?\d{3}\b|\b(?:\+?61\s?|0)([2378])\d{1}[\s-]?\d{3}[\s-]?\d{3,4}\b/g;
   const phoneNumbers = new Set(text.match(phonePattern) || []);
  
-  // US SSN: allow hyphen, space, or no separator; ignore numbers starting with 0 or 4
   const ssn = text.match(/\b(?![04])\d{3}[-\s]?\d{2}[-\s]?\d{4}\b/g) || [];
   ssn.forEach(m => {
     if (!phoneNumbers.has(m))
@@ -103,7 +97,6 @@ function detectIDs(text) {
       });
   });
  
-  // India Aadhaar: 12 digits, optional spaces, ignore numbers starting with 0 or 4
   const aadhaar = text.match(/\b(?![04])\d{4}\s?\d{4}\s?\d{4}\b/g) || [];
   aadhaar.forEach(m => {
     if (!phoneNumbers.has(m))
@@ -115,7 +108,6 @@ function detectIDs(text) {
       });
   });
  
-  // Passport (generic pattern)
   const passport = text.match(/\b[A-PR-WYa-pr-wy][1-9]\d\s?\d{4}[1-9]\b/g) || [];
   passport.forEach(m =>
     results.push({
@@ -129,7 +121,6 @@ function detectIDs(text) {
   return results;
 }
  
-// Register detectors
 const detectors = {
   emails: detectEmails,
   phones: detectPhones,
@@ -137,7 +128,6 @@ const detectors = {
   ids: detectIDs,
 };
  
-// Run all detectors on text
 function runDetectors(text) {
   let allMatches = [];
   for (const key of Object.keys(detectors)) {
@@ -147,9 +137,7 @@ function runDetectors(text) {
   return allMatches;
 }
  
-// Complex Risk Scoring
 function scoreRisk(detections) {
-  // Base weights
   const baseWeights = {
     ssn: 20,
     aadhaar: 20,
@@ -159,30 +147,25 @@ function scoreRisk(detections) {
     address: 10,
   };
  
-  // Count occurrences per type
   const counts = {};
   detections.forEach(d => {
     counts[d.type] = (counts[d.type] || 0) + 1;
   });
  
-  // Weighted score
   let score = 0;
   for (const [type, count] of Object.entries(counts)) {
     const base = baseWeights[type] || 1;
     score += base * Math.min(count, 5) * (1 + (count > 3 ? 0.25 : 0));
   }
  
-  // Combination bonus
   const sensitiveTypes = ['ssn', 'aadhaar', 'passport'];
   const foundSensitive = sensitiveTypes.filter(t => counts[t]);
   if (foundSensitive.length >= 2) {
     score += 15;
   }
  
-  // Normalise
   score = Math.min(score, 100);
  
-  // Level thresholds
   let level = 'Low';
   if (score >= 70) level = 'High';
   else if (score >= 35) level = 'Medium';
@@ -190,4 +173,34 @@ function scoreRisk(detections) {
   return { level, score, breakdown: counts };
 }
  
-module.exports = { runDetectors, scoreRisk };
+// Recommendations 
+function generateRedactionTips(detections) {
+  return detections.map(d => {
+    let suggestion = '';
+    switch (d.type) {
+      case 'email':
+        suggestion = 'Mask or remove the email address before sharing.';
+        break;
+      case 'phone':
+        suggestion = 'Mask or remove the phone number before sharing.';
+        break;
+      case 'address':
+        suggestion = 'Consider generalising or removing the address details.';
+        break;
+      case 'ssn':
+        suggestion = 'Redact or hash the SSN before distribution.';
+        break;
+      case 'aadhaar':
+        suggestion = 'Redact or mask the Aadhaar number to comply with privacy laws.';
+        break;
+      case 'passport':
+        suggestion = 'Remove or mask passport numbers to prevent identity theft.';
+        break;
+      default:
+        suggestion = 'Consider redacting this sensitive information.';
+    }
+    return { ...d, recommendation: suggestion };
+  });
+}
+ 
+module.exports = { runDetectors, scoreRisk, generateRedactionTips };

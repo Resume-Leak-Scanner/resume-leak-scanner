@@ -1,12 +1,14 @@
 #root {
-  max-width: 1280px;
+  max-width: 720px;
   margin: 0 auto;
   padding: 2rem;
   text-align: center;
+  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
 }
+/* Logo */
 
 .logo {
-  height: 6em;
+height: 6em;
   padding: 1.5em;
   will-change: filter;
   transition: filter 300ms;
@@ -14,29 +16,97 @@
 .logo:hover {
   filter: drop-shadow(0 0 2em #646cffaa);
 }
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+h2, h3, h4 {
+  margin-bottom: 1rem;
 }
-
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
+.status {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-top: 1rem;
+  color: #ffffff;
+}
+.status.low {
+  color: #00c853;
+}
+.status.medium {
+  color: #ffab00;
+}
+.status.high {
+  color: #d50000;
+}
+/* Risk score colors */
+.risk-low {
+  color: #00c853; 
+  font-weight: 600;
+}
+.risk-medium {
+  color: #ffab00; 
+  font-weight: 600;
+}
+.risk-high {
+  color: #d50000; 
+  font-weight: 600;
+}
+/*Table Styling */ 
+table.detections {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  margin-top: 1rem;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  border-radius: 12px;
+  overflow: hidden;
+}
+table.detections thead {
+  background: linear-gradient(90deg, #646cff, #535bf2);
+  color: #fff;
+  font-weight: 600;
+}
+table.detections thead th {
+  padding: 0.75rem;
+  text-align: left;
+}
+table.detections tbody {
+  background-color: #1f1f1f;
+}
+table.detections tbody tr {
+  transition: transform 0.2s, background 0.2s;
+}
+table.detections tbody tr:hover {
+  transform: translateY(-2px);
+  background-color: #2a2a2a;
+}
+table.detections tbody td {
+  padding: 0.6rem 0.75rem;
+  border-bottom: 1px solid #333;
+  color: #fff;
+}
+/* Alternate row colors */
+table.detections tbody tr:nth-child(even) {
+  background-color: #262626;
+}
+/* Responsive */
+@media (max-width: 600px) {
+  table.detections {
+    display: block;
+    overflow-x: auto;
   }
-  to {
-    transform: rotate(360deg);
-  }
+}
+/* Buttons */
+button {
+  border-radius: 8px;
+  border: 1px solid transparent;
+  padding: 0.6em 1.2em;
+  font-size: 1em;
+  font-weight: 500;
+  background-color: #1a1a1a;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  color: #fff;
+}
+button:hover {
+  border-color: #646cff;
+  background-color: #2a2a2a;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
-}
-
-.card {
-  padding: 2em;
-}
-
-.read-the-docs {
-  color: #888;
-}
+ 

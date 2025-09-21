@@ -5,37 +5,59 @@ function App() {
   const [file, setFile] = useState(null);
   const [status, setStatus] = useState("");
   const [result, setResult] = useState(null);
+  const [uploading, setUploading] = useState(false);
 
   const onFileChange = (e) => {
-    setFile(e.target.files[0]);
+    const selected = e.target.files[0];
+    if (!selected) return;
+
+    // Basic client-side validation
+    const allowedTypes = ["application/pdf", "application/vnd.openxmlformats-officedocument.wordprocessingml.document"];
+    if (!allowedTypes.includes(selected.type)) {
+      setStatus("Unsupported file type. Please upload a PDF or DOCX.");
+      setFile(null);
+      setResult(null);
+      return;
+    }
+
+    setFile(selected);
     setResult(null);
     setStatus("");
   };
 
   const onSubmit = async (e) => {
     e.preventDefault();
-    if (!file) return setStatus("Please select a file");
+    if (!file) return setStatus("Please select a file to scan.");
 
     const formData = new FormData();
     formData.append("file", file);
 
     try {
-      setStatus("Uploading...");
+      setUploading(true);
+      setStatus("Uploading and scanning...");
       const res = await fetch("http://localhost:4000/api/upload", {
         method: "POST",
         body: formData,
       });
 
       if (!res.ok) {
-        const errText = await res.text();
-        throw new Error(errText || "Upload failed");
+        const errData = await res.json().catch(() => null);
+        const msg = errData?.message || "Scan failed. Please try again.";
+        throw new Error(msg);
       }
 
       const data = await res.json();
+      if (!data || !data.risk || !data.detections) {
+        throw new Error("Scan failed: invalid response from server.");
+      }
+
       setResult(data);
-      setStatus(" ");
+      setStatus("Scan complete.");
     } catch (err) {
-      setStatus("Upload error: " + err.message);
+      setResult(null);
+      setStatus("Error: " + err.message);
+    } finally {
+      setUploading(false);
     }
   };
 
@@ -53,17 +75,26 @@ function App() {
         alt="Resume Leak Scanner Logo"
         style={{ maxWidth: "200px", height: "auto", marginBottom: "1.5rem" }}
       />
-
       <h2>Resume Leak Scanner — Upload</h2>
 
       <form onSubmit={onSubmit} style={{ marginTop: "1rem" }}>
-        <input type="file" name="resume" accept=".pdf,.docx" onChange={onFileChange} />
-        <button disabled={!file} type="submit" style={{ marginLeft: "1rem" }}>
-          Scan Resume
+        <input
+          type="file"
+          name="resume"
+          accept=".pdf,.docx"
+          onChange={onFileChange}
+          disabled={uploading}
+        />
+        <button type="submit" style={{ marginLeft: "1rem" }} disabled={!file || uploading}>
+          {uploading ? "Scanning..." : "Scan Resume"}
         </button>
       </form>
 
-      <p style={{ marginTop: "1rem", fontSize: "1.2rem", fontWeight: "600" }}>{status}</p>
+      {status && (
+        <p style={{ marginTop: "1rem", fontSize: "1.2rem", fontWeight: "600", color: status.startsWith("Error") ? "red" : "black" }}>
+          {status}
+        </p>
+      )}
 
       {result && (
         <div style={{ marginTop: "2rem" }}>
@@ -72,14 +103,7 @@ function App() {
             Risk: {result.risk.level} (score {result.risk.score})
           </h3>
 
-          <table
-            style={{
-              width: "100%",
-              borderCollapse: "collapse",
-              marginTop: "1rem",
-              boxShadow: "0 0 10px rgba(0,0,0,0.1)",
-            }}
-          >
+          <table style={{ width: "100%", borderCollapse: "collapse", marginTop: "1rem", boxShadow: "0 0 10px rgba(0,0,0,0.1)" }}>
             <thead>
               <tr style={{ background: "#f5f5f5" }}>
                 <th style={{ padding: "0.8rem", border: "1px solid #ddd" }}>Type</th>

@@ -1,0 +1,141 @@
+/* Root Container */
+#root {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+  font-family: "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  background: #f8fbff; /* clean light background */
+  color: #1c1c1c;
+  min-height: 100vh;
+}
+
+/* Logo */
+.logo {
+  height: 5em;
+  margin-bottom: 1rem;
+  transition: transform 0.3s ease;
+}
+.logo:hover {
+  transform: scale(1.05);
+}
+
+/* Headings */
+h2 {
+  font-size: 2rem;
+  color: #2c1654; /* deep purple */
+  margin-bottom: 1.5rem;
+}
+h3 {
+  font-size: 1.4rem;
+  margin-top: 2rem;
+  color: #1a6f6f; /* teal accent */
+}
+
+/* Status */
+.status {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-top: 1rem;
+}
+.status.low {
+  color: #2e7d32; /* green */
+}
+.status.medium {
+  color: #f57f17; /* amber */
+}
+.status.high {
+  color: #c62828; /* red */
+}
+
+/* Risk Labels */
+.risk-low {
+  color: #2e7d32;
+  font-weight: 600;
+}
+.risk-medium {
+  color: #f57f17;
+  font-weight: 600;
+}
+.risk-high {
+  color: #b71c1c;
+  font-weight: 600;
+}
+
+/* Analysis Card */
+.analysis {
+  background: #ffffff;
+  border-radius: 14px;
+  padding: 1.5rem;
+  margin-top: 2rem;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+  text-align: left;
+  border-left: 6px solid #2c1654; /* strong contrast accent */
+}
+
+/* Table */
+table.detections {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1rem;
+  border-radius: 10px;
+  overflow: hidden;
+  font-size: 0.95rem;
+}
+table.detections thead {
+  background: linear-gradient(90deg, #2c1654, #1a6f6f); /* purple → teal */
+  color: #fff;
+}
+table.detections thead th {
+  padding: 0.8rem;
+  text-align: left;
+}
+table.detections tbody tr:nth-child(odd) {
+  background-color: #f2f6ff;
+}
+table.detections tbody tr:nth-child(even) {
+  background-color: #eaf7f6;
+}
+table.detections tbody td {
+  padding: 0.8rem;
+  border-bottom: 1px solid #ddd;
+  color: #222;
+}
+table.detections tbody tr:hover {
+  background-color: #d8e7ff;
+}
+
+/* Buttons */
+button {
+  border-radius: 8px;
+  border: none;
+  padding: 0.75em 1.5em;
+  font-size: 1rem;
+  font-weight: 600;
+  background: linear-gradient(135deg, #2c1654, #1a6f6f);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  color: #fff;
+  margin-top: 1rem;
+}
+button:hover {
+  background: linear-gradient(135deg, #3a1e70, #208383);
+  box-shadow: 0 4px 14px rgba(26, 111, 111, 0.4);
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  #root {
+    padding: 1rem;
+  }
+  table.detections {
+    display: block;
+    overflow-x: auto;
+  }
+  h2 {
+    font-size: 1.6rem;
+  }
+  h3 {
+    font-size: 1.2rem;
+  }
+}

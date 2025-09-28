@@ -1,0 +1,28 @@
+{
+  "US": {
+    "SSN": {
+      "description": "Social Security Number",
+      "pattern": "\\b\\d{3}-\\d{2}-\\d{4}\\b"
+    }
+  },
+  "India": {
+    "Aadhaar": {
+      "description": "Aadhaar Number",
+      "pattern": "\\b\\d{4}\\s?\\d{4}\\s?\\d{4}\\b"
+    }
+  },
+  "Australia": {
+    "TFN": {
+      "description": "Tax File Number - 8 or 9 digits",
+      "pattern": "\\b\\d{8,9}\\b"
+    },
+    "DriverLicense": {
+      "description": "Driver licence (6-9 alphanumeric)",
+      "pattern": "\\b[A-Z0-9]{6,9}\\b"
+    },
+    "Passport": {
+      "description": "Passport number (1 letter + 7 digits)",
+      "pattern": "\\b[A-Z]{1}\\d{7}\\b"
+    }
+  }
+}

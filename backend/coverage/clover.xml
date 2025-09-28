@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<coverage generated="1758438550509" clover="3.2.0">
+  <project timestamp="1758438550509" name="All files">
+    <metrics statements="129" coveredstatements="127" conditionals="62" coveredconditionals="50" methods="26" coveredmethods="25" elements="217" coveredelements="202" complexity="0" loc="129" ncloc="129" packages="2" files="5" classes="5"/>
+    <package name="modules">
+      <metrics statements="110" coveredstatements="108" conditionals="58" coveredconditionals="48" methods="24" coveredmethods="23"/>
+      <file name="detectors.js" path="C:\Users\7136t\resume-leak-scanner\backend\src\modules\detectors.js">
+        <metrics statements="83" coveredstatements="81" conditionals="50" coveredconditionals="41" methods="20" coveredmethods="19"/>
+        <line num="5" count="22" type="stmt"/>
+        <line num="6" count="22" type="cond" truecount="1" falsecount="1"/>
+        <line num="8" count="22" type="stmt"/>
+        <line num="9" count="22" type="stmt"/>
+        <line num="10" count="22" type="cond" truecount="2" falsecount="0"/>
+        <line num="12" count="22" type="stmt"/>
+        <line num="13" count="22" type="stmt"/>
+        <line num="14" count="22" type="cond" truecount="2" falsecount="0"/>
+        <line num="16" count="22" type="stmt"/>
+        <line num="21" count="5" type="stmt"/>
+        <line num="22" count="5" type="cond" truecount="1" falsecount="1"/>
+        <line num="23" count="5" type="stmt"/>
+        <line num="33" count="5" type="stmt"/>
+        <line num="37" count="5" type="stmt"/>
+        <line num="38" count="5" type="stmt"/>
+        <line num="39" count="10" type="cond" truecount="2" falsecount="0"/>
+        <line num="40" count="10" type="stmt"/>
+        <line num="43" count="5" type="stmt"/>
+        <line num="54" count="5" type="stmt"/>
+        <line num="55" count="5" type="stmt"/>
+        <line num="59" count="5" type="stmt"/>
+        <line num="61" count="5" type="stmt"/>
+        <line num="62" count="5" type="cond" truecount="2" falsecount="0"/>
+        <line num="63" count="3" type="stmt"/>
+        <line num="70" count="5" type="cond" truecount="2" falsecount="0"/>
+        <line num="71" count="0" type="stmt"/>
+        <line num="78" count="5" type="stmt"/>
+        <line num="83" count="5" type="stmt"/>
+        <line num="86" count="5" type="stmt"/>
+        <line num="87" count="5" type="cond" truecount="1" falsecount="1"/>
+        <line num="89" count="5" type="cond" truecount="2" falsecount="0"/>
+        <line num="90" count="5" type="stmt"/>
+        <line num="91" count="3" type="cond" truecount="1" falsecount="1"/>
+        <line num="92" count="3" type="stmt"/>
+        <line num="100" count="5" type="cond" truecount="2" falsecount="0"/>
+        <line num="101" count="5" type="stmt"/>
+        <line num="102" count="3" type="cond" truecount="1" falsecount="1"/>
+        <line num="103" count="3" type="stmt"/>
+        <line num="111" count="5" type="cond" truecount="2" falsecount="0"/>
+        <line num="112" count="5" type="stmt"/>
+        <line num="113" count="3" type="stmt"/>
+        <line num="121" count="5" type="stmt"/>
+        <line num="124" count="2" type="stmt"/>
+        <line num="132" count="5" type="stmt"/>
+        <line num="133" count="5" type="stmt"/>
+        <line num="134" count="20" type="stmt"/>
+        <line num="135" count="20" type="cond" truecount="4" falsecount="0"/>
+        <line num="137" count="5" type="stmt"/>
+        <line num="141" count="3" type="stmt"/>
+        <line num="150" count="3" type="stmt"/>
+        <line num="151" count="3" type="stmt"/>
+        <line num="152" count="10" type="cond" truecount="2" falsecount="0"/>
+        <line num="155" count="3" type="stmt"/>
+        <line num="156" count="3" type="stmt"/>
+        <line num="157" count="10" type="cond" truecount="1" falsecount="1"/>
+        <line num="158" count="10" type="cond" truecount="1" falsecount="1"/>
+        <line num="161" count="3" type="stmt"/>
+        <line num="162" count="9" type="stmt"/>
+        <line num="163" count="3" type="cond" truecount="2" falsecount="0"/>
+        <line num="164" count="1" type="stmt"/>
+        <line num="167" count="3" type="stmt"/>
+        <line num="169" count="3" type="stmt"/>
+        <line num="170" count="3" type="cond" truecount="2" falsecount="0"/>
+        <line num="171" count="2" type="cond" truecount="1" falsecount="1"/>
+        <line num="173" count="3" type="stmt"/>
+        <line num="178" count="3" type="stmt"/>
+        <line num="179" count="10" type="stmt"/>
+        <line num="180" count="10" type="cond" truecount="6" falsecount="1"/>
+        <line num="182" count="3" type="stmt"/>
+        <line num="183" count="3" type="stmt"/>
+        <line num="185" count="3" type="stmt"/>
+        <line num="186" count="3" type="stmt"/>
+        <line num="188" count="1" type="stmt"/>
+        <line num="189" count="1" type="stmt"/>
+        <line num="191" count="1" type="stmt"/>
+        <line num="192" count="1" type="stmt"/>
+        <line num="194" count="1" type="stmt"/>
+        <line num="195" count="1" type="stmt"/>
+        <line num="197" count="1" type="stmt"/>
+        <line num="198" count="1" type="stmt"/>
+        <line num="200" count="0" type="stmt"/>
+        <line num="202" count="10" type="stmt"/>
+        <line num="206" count="2" type="stmt"/>
+      </file>
+      <file name="normalize.js" path="C:\Users\7136t\resume-leak-scanner\backend\src\modules\normalize.js">
+        <metrics statements="7" coveredstatements="7" conditionals="2" coveredconditionals="2" methods="1" coveredmethods="1"/>
+        <line num="2" count="5" type="cond" truecount="2" falsecount="0"/>
+        <line num="3" count="3" type="stmt"/>
+        <line num="4" count="3" type="stmt"/>
+        <line num="5" count="3" type="stmt"/>
+        <line num="6" count="3" type="stmt"/>
+        <line num="7" count="3" type="stmt"/>
+        <line num="9" count="2" type="stmt"/>
+      </file>
+      <file name="processor.js" path="C:\Users\7136t\resume-leak-scanner\backend\src\modules\processor.js">
+        <metrics statements="20" coveredstatements="20" conditionals="6" coveredconditionals="5" methods="3" coveredmethods="3"/>
+        <line num="2" count="1" type="stmt"/>
+        <line num="3" count="1" type="stmt"/>
+        <line num="4" count="1" type="stmt"/>
+        <line num="9" count="1" type="stmt"/>
+        <line num="11" count="1" type="stmt"/>
+        <line num="12" count="1" type="stmt"/>
+        <line num="15" count="1" type="stmt"/>
+        <line num="16" count="1" type="stmt"/>
+        <line num="19" count="3" type="stmt"/>
+        <line num="20" count="3" type="cond" truecount="2" falsecount="0"/>
+        <line num="21" count="1" type="stmt"/>
+        <line num="22" count="2" type="cond" truecount="2" falsecount="0"/>
+        <line num="26" count="1" type="stmt"/>
+        <line num="28" count="1" type="stmt"/>
+        <line num="30" count="2" type="cond" truecount="1" falsecount="1"/>
+        <line num="31" count="2" type="stmt"/>
+        <line num="32" count="2" type="stmt"/>
+        <line num="34" count="2" type="stmt"/>
+        <line num="35" count="2" type="stmt"/>
+        <line num="41" count="1" type="stmt"/>
+      </file>
+    </package>
+    <package name="utils">
+      <metrics statements="19" coveredstatements="19" conditionals="4" coveredconditionals="2" methods="2" coveredmethods="2"/>
+      <file name="idDetector.js" path="C:\Users\7136t\resume-leak-scanner\backend\src\utils\idDetector.js">
+        <metrics statements="13" coveredstatements="13" conditionals="4" coveredconditionals="2" methods="2" coveredmethods="2"/>
+        <line num="1" count="1" type="stmt"/>
+        <line num="2" count="1" type="stmt"/>
+        <line num="3" count="1" type="stmt"/>
+        <line num="8" count="3" type="stmt"/>
+        <line num="9" count="3" type="cond" truecount="1" falsecount="1"/>
+        <line num="11" count="3" type="stmt"/>
+        <line num="12" count="5" type="stmt"/>
+        <line num="13" count="5" type="stmt"/>
+        <line num="14" count="5" type="cond" truecount="1" falsecount="1"/>
+        <line num="15" count="5" type="stmt"/>
+        <line num="16" count="6" type="stmt"/>
+        <line num="19" count="3" type="stmt"/>
+        <line num="22" count="1" type="stmt"/>
+      </file>
+      <file name="patterns.js" path="C:\Users\7136t\resume-leak-scanner\backend\src\utils\patterns.js">
+        <metrics statements="6" coveredstatements="6" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+        <line num="2" count="1" type="stmt"/>
+        <line num="5" count="1" type="stmt"/>
+        <line num="11" count="1" type="stmt"/>
+        <line num="12" count="1" type="stmt"/>
+        <line num="18" count="1" type="stmt"/>
+        <line num="20" count="1" type="stmt"/>
+      </file>
+    </package>
+  </project>
+</coverage>

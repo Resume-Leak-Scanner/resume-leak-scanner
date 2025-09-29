@@ -83,7 +83,7 @@ Node.js (v16+)
 npm or yarn 
 
 **Setup**
-git clone https://github.com/youruser/resume-privacy-scanner.git
+git clone https://github.com/youruser/resume-leak-scanner.git
 cd resume-privacy-scanner
 npm install         
 cd client && npm install   
